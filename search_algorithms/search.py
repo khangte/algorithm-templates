@@ -25,6 +25,42 @@ class SearchAlgorithms:
         return -1
     
     @staticmethod
+    def recursive_binary_search(arr, target, left = 0, right = None):
+        """재귀 이진 탐색"""
+        if right is None:
+            right = len(arr) - 1
+        if left > right:
+            return -1
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            return SearchAlgorithms.recursive_binary_search(arr, target, mid + 1, right)
+        else:
+            return SearchAlgorithms.recursive_binary_search(arr, target, left, mid - 1)
+        
+    @staticmethod
+    def ternary_search(arr, target):
+        """삼진 탐색: 정렬된 배열에서 세 구간으로 나누어 탐색"""
+        def helper(left, right):
+            if left > right:
+                return -1
+            third = (right - left) // 3
+            mid1 = left + third
+            mid2 = right - third
+            if arr[mid1] == target:
+                return mid1
+            if arr[mid2] == target:
+                return mid2
+            if target < arr[mid1]:
+                return helper(left, mid1 - 1)
+            elif target > arr[mid2]:
+                return helper(mid2 + 1, right)
+            else:
+                return helper(mid1 + 1, mid2 - 1)
+        return helper(0, len(arr) - 1)
+
+    @staticmethod
     def dfs(graph, start, visited = None):
         """깊이 우선 탐색 (DFS): 재귀 방식"""
         if visited is None:
