@@ -24,4 +24,29 @@ class SearchAlgorithms:
                 right = mid - 1
         return -1
     
+    @staticmethod
+    def dfs(graph, start, visited = None):
+        """깊이 우선 탐색 (DFS): 재귀 방식"""
+        if visited is None:
+            visited = set()
+        visited.add(start)
+        for neighbor in graph[start]:
+            if neighbor not in visited:
+                SearchAlgorithms.dfs(graph, neighbor, visited)
+        return visited
+    
+    @staticmethod
+    def bfs(graph, start):
+        """너비 우선 탐색 (BFS): 큐 사용"""
+        from collections import deque
+        visited = set()
+        queue = deque([start])
+        visited.add(start)
+        while queue:
+            vertex = queue.popleft()
+            for neighbor in graph[vertex]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        return visited
     
