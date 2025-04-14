@@ -10,7 +10,6 @@ class SortAlgorithms:
 
         pivot = arr[0]
         tail = arr[1:]
-
         left = [x for x in tail if x <= pivot]
         right = [x for x in tail if x > pivot]
 
@@ -22,12 +21,10 @@ class SortAlgorithms:
         """데이터의 크기 범위가 제한되어 정수 형태로 표현할 수 있을 때만 사용 가능"""
         if not arr:
             return []
-
         if min(arr) < 0:
             raise ValueError("Counting sort only supports non-negative integers.")
 
         count = [0] * (max(arr) + 1)
-
         for num in arr:
             count[num] += 1
 
